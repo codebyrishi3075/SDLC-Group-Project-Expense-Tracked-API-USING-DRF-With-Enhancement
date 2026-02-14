@@ -1,0 +1,904 @@
+{
+  "info": {
+    "_postman_id": "0d3c8f1e-5a9c-4d2b-8e1f-7c6a9d2b5e8f",
+    "name": "Expense Tracker API3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50928281",
+    "description": "Complete Expense Tracker API - 27 endpoints organized by functionality"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newuser@example.com\",\n  \"username\": \"newuser\",\n  \"password\": \"SecurePass123!\",\n  \"confirm_password\": \"SecurePass123!\",\n  \"full_name\": \"John Doe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/register/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "register", ""]
+            },
+            "description": "Register a new user account"
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Email OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newuser@example.com\",\n  \"otp\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/verify-otp/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "verify-otp", ""]
+            },
+            "description": "Verify email OTP after registration"
+          },
+          "response": []
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePass123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/login/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "login", ""]
+            },
+            "description": "Login and get JWT access token"
+          },
+          "response": []
+        },
+        {
+          "name": "Password Reset Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/password-reset/request/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "password-reset", "request", ""]
+            },
+            "description": "Request password reset OTP"
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Password Reset OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"otp\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/password-reset/verify-otp/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "password-reset", "verify-otp", ""]
+            },
+            "description": "Verify OTP for password reset"
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm New Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"new_password\": \"NewSecurePass123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/password-reset/confirm/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "password-reset", "confirm", ""]
+            },
+            "description": "Set new password"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Account",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/account/profile/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "profile", ""]
+            },
+            "description": "Retrieve user profile information"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/profile/update/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "profile", "update", ""]
+            },
+            "description": "Update user profile information"
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Profile Avatar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "profile_image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/account/profile/avatar/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "account", "profile", "avatar", ""]
+            },
+            "description": "Upload user profile picture/avatar"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Settings",
+      "item": [
+        {
+          "name": "Get Currency Options",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usersettings/currencies/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usersettings", "currencies", ""]
+            },
+            "description": "Get list of available currencies (public endpoint)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Settings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/usersettings/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usersettings", ""]
+            },
+            "description": "Get user's current settings (currency and monthly budget limit)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": \"USD\",\n  \"monthly_budget_limit\": 5000.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/usersettings/update/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "usersettings", "update", ""]
+            },
+            "description": "Update currency and monthly budget limit"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Budget Categories",
+      "item": [
+        {
+          "name": "List Budget Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/budgets/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", ""]
+            },
+            "description": "List all budget categories for the user"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Budget Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Travel\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/budgets/create/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "create", ""]
+            },
+            "description": "Create a new budget category"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Budget Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Travel & Transportation\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/budgets/update/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "update", "1", ""]
+            },
+            "description": "Update a budget category (replace 1 with category ID)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Budget Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/budgets/delete/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "delete", "1", ""]
+            },
+            "description": "Delete a budget category (replace 1 with category ID)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Monthly Budgets",
+      "item": [
+        {
+          "name": "List Budgets",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/budgets/budgets/?month=2026-02",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "budgets", ""]
+            },
+            "description": "List budgets with optional month filter (format: YYYY-MM)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Monthly Budget",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": 1,\n  \"amount\": \"2000.00\",\n  \"month\": \"2026-02-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/budgets/budgets/create/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "budgets", "create", ""]
+            },
+            "description": "Create a budget allocation for a category in a specific month"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Monthly Budget",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"2500.00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/budgets/budgets/1/update/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "budgets", "1", "update", ""]
+            },
+            "description": "Update a budget allocation (replace 1 with budget ID)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Monthly Budget",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/budgets/budgets/1/delete/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "budgets", "1", "delete", ""]
+            },
+            "description": "Delete a budget allocation (replace 1 with budget ID)"
+          },
+          "response": []
+        },
+        {
+          "name": "Budget Utilization Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/budgets/budgets/utilization/?month=2026-02",
+              "host": ["{{base_url}}"],
+              "path": ["api", "budgets", "budgets", "utilization", ""]
+            },
+            "description": "Get budget utilization report showing spent vs allocated for a month"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "List Expenses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses/?category=1&month=2026-02&page=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", ""]
+            },
+            "description": "List expenses with optional filtering and pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Expense",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": 1,\n  \"amount\": \"150.00\",\n  \"date\": \"2026-02-14\",\n  \"notes\": \"Flight booking\",\n  \"expense_type\": \"variable\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/expenses/create/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "create", ""]
+            },
+            "description": "Record a new expense"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Expense",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"175.00\",\n  \"notes\": \"Flight booking - updated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/expenses/update/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "update", "1", ""]
+            },
+            "description": "Update an expense (replace 1 with expense ID)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Expense",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses/delete/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "delete", "1", ""]
+            },
+            "description": "Delete an expense (replace 1 with expense ID)"
+          },
+          "response": []
+        },
+        {
+          "name": "Export Expenses as PDF",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/expenses/expenses/export/pdf/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "expenses", "expenses", "export", "pdf", ""]
+            },
+            "description": "Export expenses as PDF file"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/summary/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "summary", ""]
+            },
+            "description": "Get dashboard summary with overall statistics"
+          },
+          "response": []
+        },
+        {
+          "name": "Spending Trends",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/analytics/trends/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "analytics", "trends", ""]
+            },
+            "description": "Get spending trends over time"
+          },
+          "response": []
+        },
+        {
+          "name": "Category Breakdown",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/analytics/category-breakdown/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "analytics", "category-breakdown", ""]
+            },
+            "description": "Get spending breakdown by category"
+          },
+          "response": []
+        },
+        {
+          "name": "Budget Adherence",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/analytics/budget-adherence/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "analytics", "budget-adherence", ""]
+            },
+            "description": "Check how well spending adheres to budget"
+          },
+          "response": []
+        },
+        {
+          "name": "Month Comparison",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/analytics/month-comparison/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "analytics", "month-comparison", ""]
+            },
+            "description": "Compare spending across different months"
+          },
+          "response": []
+        },
+        {
+          "name": "Expense Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/analytics/statistics/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "analytics", "statistics", ""]
+            },
+            "description": "Get detailed expense statistics"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "item": [
+        {
+          "name": "Submit Contact Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"subject\": \"Inquiry about features\",\n  \"message\": \"I would like to know more about the budget tracking features.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/contact/submit/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "contact", "submit", ""]
+            },
+            "description": "Submit a contact form message (public endpoint)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string",
+      "description": "Base URL for the API (change to your server address)"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string",
+      "description": "JWT access token - obtained from login endpoint"
+    }
+  ]
+}

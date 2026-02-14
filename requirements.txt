@@ -1,0 +1,8 @@
+Django
+djangorestframework
+django-cors-headers
+jazzmin
+python-dotenv
+djangorestframework-simplejwt
+reportlab
+python-dateutil
