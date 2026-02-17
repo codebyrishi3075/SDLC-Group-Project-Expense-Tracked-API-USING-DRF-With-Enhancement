@@ -1,5 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
+from datetime import timedelta
+from django.conf import settings
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
@@ -16,10 +19,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-from django.db import models
-from django.utils import timezone
-from datetime import timedelta
-from django.conf import settings
 
 class EmailOTP(models.Model):
     PURPOSE_CHOICES = (
@@ -34,5 +33,5 @@ class EmailOTP(models.Model):
     is_used = models.BooleanField(default=False)
 
     def is_expired(self):
-        return timezone.now() > self.created_at + timedelta(days=7)
+        return timezone.now() > self.created_at + timedelta(minutes=15)
 

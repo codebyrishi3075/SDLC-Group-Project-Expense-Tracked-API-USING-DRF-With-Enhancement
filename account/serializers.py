@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import User
 
-
 class RegisterSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
@@ -42,9 +41,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-# ----------------------Profile Serializer-------------------------------
-from rest_framework import serializers
-from .models import User
+# ----------------------Profile Serializer--------------------------------
 
 class ProfileSerializer(serializers.ModelSerializer):
     profile_image_url = serializers.SerializerMethodField()
