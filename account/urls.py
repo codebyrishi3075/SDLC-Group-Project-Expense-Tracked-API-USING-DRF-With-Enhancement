@@ -7,15 +7,15 @@ urlpatterns = [
     path('login/', views.login_user, name='login'),
     path('profile/', views.profile, name='profile'),
 
-    # -----User Profile Management-----
+    # -----User Profile Management-----------------------
     path('profile/update/', views.update_profile, name='update_profile'),
     path('profile/avatar/', views.upload_avatar, name='upload_avatar'),
 
-    # --------Password reset URLs
+    # --------Password reset URLs------------------------
     path('password-reset/request/', views.password_reset_request, name='password_reset_request'),
     path('password-reset/verify-otp/', views.password_reset_verify_otp, name='password_reset_verify_otp'),
     path('password-reset/confirm/', views.password_reset_confirm, name='password_reset_confirm'),
-
+    
 ]
 
 
