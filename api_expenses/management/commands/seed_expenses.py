@@ -37,7 +37,7 @@ class Command(BaseCommand):
 
         # Create budget categories and allocate amounts
         category_objs = []
-        total_budget = Decimal('15000')  # Total budget per month
+        total_budget = Decimal('50000')  # Total budget per month
         
         today = timezone.now().date()
         
