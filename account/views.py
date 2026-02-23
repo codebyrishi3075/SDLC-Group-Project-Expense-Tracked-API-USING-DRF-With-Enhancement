@@ -100,7 +100,7 @@ def login_user(request):
         user = authenticate(username=email, password=password)
 
         if not user:
-            return Response({'error': 'Invalid credentials'}, status=401)
+            return Response({'help': 'You are not activated yet please! contact to the admin.'}, status=401)
 
         if not user.is_email_verified:
             return Response({'error': 'Email not verified'}, status=403)
