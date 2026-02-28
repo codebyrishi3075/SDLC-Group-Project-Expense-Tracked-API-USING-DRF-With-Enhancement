@@ -93,34 +93,68 @@ def verify_email_otp(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    # ── Field validation ──────────────────────────────────────────
+    if not email or not password:
+        return Response(
+            {'error': 'Email and password are required'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # ── Check user existence ──────────────────────────────────────
     try:
-        email = request.data.get('email')
-        password = request.data.get('password')
+        user_obj = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return Response(
+            {'error': 'No account found with this email'},
+            status=status.HTTP_404_NOT_FOUND
+        )
 
-        user = authenticate(username=email, password=password)
+    # ── Check account activation ──────────────────────────────────
+    if not user_obj.is_active:
+        return Response(
+            {'error': 'Account is not activated. Please verify your email first.'},
+            status=status.HTTP_403_FORBIDDEN
+        )
 
-        if not user:
-            return Response({'help': 'You are not activated yet please! contact to the admin.'}, status=401)
+    # ── Check email verification ──────────────────────────────────
+    if not user_obj.is_email_verified:
+        return Response(
+            {'error': 'Email not verified. Please check your inbox for the OTP.'},
+            status=status.HTTP_403_FORBIDDEN
+        )
 
-        if not user.is_email_verified:
-            return Response({'error': 'Email not verified'}, status=403)
+    # ── Authenticate (password check) ────────────────────────────
+    user = authenticate(username=email, password=password)
+    if user is None:
+        return Response(
+            {'error': 'Incorrect password. Please try again.'},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 
+    # ── Issue JWT tokens ──────────────────────────────────────────
+    try:
         refresh = RefreshToken.for_user(user)
-
         return Response({
             'message': 'Login successful',
             'access': str(refresh.access_token),
             'refresh': str(refresh),
             'user': {
                 'id': user.id,
-                'email': user.email
+                'email': user.email,
+                'full_name': f"{user.first_name} {user.last_name}".strip(),
+                'username': user.username,
             }
-        })
+        }, status=status.HTTP_200_OK)
+
     except Exception as e:
         return Response(
-            {'error': str(e), 'message': 'Failed to login'},
+            {'error': 'Failed to generate tokens. Please try again.'},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+
 
 
 # ------------------------------- PROFILE --------------------------------------
