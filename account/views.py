@@ -28,7 +28,8 @@ def register_user(request):
 
         otp = generate_otp()
         EmailOTP.objects.filter(user=user).delete()
-        EmailOTP.objects.create(user=user, otp=otp)
+        # ✅ FIXED - purpose explicitly set
+        EmailOTP.objects.create(user=user, otp=otp, purpose='register')
 
         send_mail(
             subject='Verify your email',
@@ -62,9 +63,11 @@ def verify_email_otp(request):
         if not user:
             return Response({'error': 'Invalid email'}, status=400)
 
+        # ✅ FIXED - filters by purpose='register'
         otp_obj = EmailOTP.objects.filter(
             user=user,
             otp=otp,
+            purpose='register',
             is_used=False
         ).last()
 

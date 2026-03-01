@@ -19,7 +19,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-
 class EmailOTP(models.Model):
     PURPOSE_CHOICES = (
         ('register', 'Register'),
@@ -28,10 +27,17 @@ class EmailOTP(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     otp = models.CharField(max_length=6)
-    purpose = models.CharField(max_length=10, choices=PURPOSE_CHOICES)
+    purpose = models.CharField(max_length=10, choices=PURPOSE_CHOICES, default='register')
     created_at = models.DateTimeField(auto_now_add=True)
     is_used = models.BooleanField(default=False)
 
     def is_expired(self):
         return timezone.now() > self.created_at + timedelta(minutes=15)
 
+    def __str__(self):
+        return f"{self.user.email} - {self.purpose} - {'Used' if self.is_used else 'Active'}"
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Email OTP'
+        verbose_name_plural = 'Email OTPs'
